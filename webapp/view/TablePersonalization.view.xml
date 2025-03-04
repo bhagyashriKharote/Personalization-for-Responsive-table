@@ -1,0 +1,135 @@
+<mvc:View
+    height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:m="sap.m"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:dnd="sap.ui.core.dnd"
+    controllerName="com.reusable.personalization.tablepersonalization.controller.TablePersonalization"
+>
+
+    <Page showHeader="false">
+        
+        <!-- Filter Bar -->
+        <fb:FilterBar id="filterBar" useToolbar="true" advancedMode="false" search=".onGoPress">
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem groupName="Basic" label="Department" name="Department" visibleInFilterBar="false">
+                    <fb:control>
+                        <m:Input id="departmentInput" class="sapUiSmallMarginEnd" />
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem groupName="Basic" label="Title" name="Title" visibleInFilterBar="true">
+                    <fb:control>
+                        <m:Input id="titleInput" class="sapUiSmallMarginEnd" />
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem groupName="Basic" label="Skills" name="Skills" visibleInFilterBar="true">
+                    <fb:control>
+                        <m:Input id="skillsInput" class="sapUiSmallMarginEnd" />
+                    </fb:control>
+                </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+        </fb:FilterBar>
+
+        <!-- Table with Personalization -->
+        <Table id="idEmployeeTable" items="{/employees}" ariaLabelledBy="title" fixedLayout="Strict"
+            autoPopinMode="true" growing="true" sticky="ColumnHeaders,HeaderToolbar" popinLayout="GridSmall">
+
+            <headerToolbar>
+                <OverflowToolbar>
+                    <Title id="title" text="Employee Details"/>
+                    <ToolbarSeparator/>
+                    <vm:VariantManagement id="p13nVm" for="idEmployeeTable"/>
+                    <ToolbarSpacer/>
+                    <Button id="hideFilterButton" icon="sap-icon://decline" tooltip="Hide Filter Bar" press="onHideFilterPress"/>
+                    <Button id="filterButton" icon="sap-icon://filter" tooltip="Filters" press="onFilterPress"/>
+                    <Button id="personalizeButton" icon="sap-icon://action-settings" tooltip="Personalize" press="onPersonalizePress"/>
+                </OverflowToolbar>
+            </headerToolbar>
+
+            <dependents>
+                <plugins:ColumnResizer columnResize="onColumnResize"/>
+                <columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu">
+                    <columnmenu:QuickSort change="onSort">
+                        <columnmenu:items>
+                            <columnmenu:QuickSortItem/>
+                        </columnmenu:items>
+                    </columnmenu:QuickSort>
+                    <columnmenu:QuickGroup change="onGroup">
+                        <columnmenu:items>
+                            <columnmenu:QuickGroupItem/>
+                        </columnmenu:items>
+                    </columnmenu:QuickGroup>
+                    <columnmenu:items>
+                        <columnmenu:ActionItem icon="sap-icon://sort" label="Sort" press="onColumnHeaderItemPress"/>
+                        <columnmenu:ActionItem icon="sap-icon://group-2" label="Group" press="onColumnHeaderItemPress"/>
+                        <columnmenu:ActionItem icon="sap-icon://table-column" label="Columns" press="onColumnHeaderItemPress"/>
+                    </columnmenu:items>
+                </columnmenu:Menu>
+            </dependents>
+
+            <dragDropConfig>
+                <dnd:DragDropInfo sourceAggregation="columns" targetAggregation="columns" dropPosition="Between" drop="onColumnMove"/>
+            </dragDropConfig>
+
+            <noData>
+                <IllustratedMessage/>
+            </noData>
+
+            <!-- Table Columns -->
+            <columns>
+                <Column id="EmployeeID" headerMenu="menu"><Text text="ID"/></Column>
+                <Column id="Name" headerMenu="menu"><Text text="Name"/></Column>
+                <Column id="Department" headerMenu="menu"><Text text="Department"/></Column>
+                <Column id="Location" headerMenu="menu"><Text text="Location"/></Column>
+                <Column id="Email" headerMenu="menu"><Text text="Email"/></Column>
+                <Column id="Phone" headerMenu="menu"><Text text="Phone"/></Column>
+                <Column id="Title" headerMenu="menu"><Text text="Title"/></Column>
+                <Column id="Status" headerMenu="menu"><Text text="Status"/></Column>
+                <Column id="Salary" headerMenu="menu"><Text text="Salary"/></Column>
+                <Column id="JoiningDate" headerMenu="menu"><Text text="Joining Date"/></Column>
+                <Column id="Experience" headerMenu="menu"><Text text="Experience"/></Column>
+                <Column id="Skills" headerMenu="menu"><Text text="Skills"/></Column>
+                <Column id="Projects" headerMenu="menu"><Text text="Projects"/></Column>
+                <Column id="Performance" headerMenu="menu"><Text text="Performance"/></Column>
+                <Column id="Age" headerMenu="menu"><Text text="Age"/></Column>
+                <Column id="Gender" headerMenu="menu"><Text text="Gender"/></Column>
+                <Column id="MaritalStatus" headerMenu="menu"><Text text="Marital Status"/></Column>
+                <Column id="Education" headerMenu="menu"><Text text="Education"/></Column>
+                <Column id="Certifications" headerMenu="menu"><Text text="Certifications"/></Column>
+                <Column id="Languages" headerMenu="menu"><Text text="Languages"/></Column>
+            </columns>
+
+            <!-- Table Data Binding -->
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{EmployeeID}"/>
+                        <Text text="{Name}"/>
+                        <Text text="{Department}"/>
+                        <Text text="{Location}"/>
+                        <Text text="{Email}"/>
+                        <Text text="{Phone}"/>
+                        <Text text="{Title}"/>
+                        <Text text="{Status}"/>
+                        <Text text="{Salary}"/>
+                        <Text text="{JoiningDate}"/>
+                        <Text text="{Experience}"/>
+                        <Text text="{Skills}"/>
+                        <Text text="{Projects}"/>
+                        <Text text="{Performance}"/>
+                        <Text text="{Age}"/>
+                        <Text text="{Gender}"/>
+                        <Text text="{MaritalStatus}"/>
+                        <Text text="{Education}"/>
+                        <Text text="{Certifications}"/>
+                        <Text text="{Languages}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>
